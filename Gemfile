@@ -25,14 +25,37 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+#Use bootstrap
+gem 'bootstrap-sass','2.3.2.0'
+gem 'sprockets', '2.11.3'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+group :development , :test do
+  #use Rspec
+  gem 'rspec-rails'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+  #use pry
+  gem 'pry', '< 0.10.0'
+  gem 'pry-rails'
+  gem 'hirb'
+  gem 'hirb-unicode'
+  gem 'binding_of_caller'
+  gem 'pry-byebug'
+end
+
+group :test do
+  #use Capybara
+  gem 'selenium-webdriver'
+  gem 'capybara'
+  gem 'launchy'
+  #use Factoly girl
+  gem 'factory_girl_rails','4.2.1'
+  gem 'database_cleaner',"~> 1.0.1"
+  #gem 'capybara-screenshot'
+end
+
+group :production do
+  gem 'rails_12factor'# use to heroku
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
