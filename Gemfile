@@ -7,6 +7,10 @@ gem 'rails', '4.1.7'
 # gem 'pg'
 gem 'pg', '~> 0.18.0.pre20141117110243'
 
+#use authlization
+gem 'devise'
+gem 'cancan'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
