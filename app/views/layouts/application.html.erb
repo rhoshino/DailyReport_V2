@@ -7,11 +7,30 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<!--  Devise Error massage -->
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
 
-<%= yield %>
+<%= render 'layouts/header'%>
+
+<div class="container">
+
+  <!--  Devise Error massage -->
+<!--   <%# if notice %>
+    <div class="alert alert-notice"><%= notice %></p>
+  <%# end %>
+  <%# if alert %>
+    <div class="alert alert-error"><%= alert %></p>
+  <%# end %> -->
+
+  <% flash.each do |key,value|%>
+    <%= content_tag(:div, value, class: "alert alert-#{key}")%>
+  <% end %>
+
+  <%= yield %>
+
+  <% if Rails.env.development? %>
+    <% debug(params) %>
+  <% end %>
+
+</div>
 
 </body>
 </html>

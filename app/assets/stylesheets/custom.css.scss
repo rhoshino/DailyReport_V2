@@ -1,0 +1,33 @@
+@import "bootstrap";
+
+*{
+    font-family:'メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+@mixin box-sizing{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html{
+    overflow-y: scroll;
+}
+
+// body{
+//     padding-top: 60px;
+// }
+
+section{
+    overflow: auto;
+}
+#logo{
+    float: left;
+    color:black;
+    font-size: 1.7em;
+    font-weight: bold;
+    line-height: 2;
+    &:hover{
+        text-decoration: none;
+        color: blue;
+    }
+}
