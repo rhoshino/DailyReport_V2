@@ -1,7 +1,12 @@
-<h1>
+<h2>
   <%= current_user.name %>
-</h1>
+</h2>
 
 <span>
   <%= link_to "Edit my profile" , edit_user_registration_path%>
 </span>
+
+<div>
+  <p>公開された日報：<%=link_to current_user.public_reports_count,public_user_reports_path%></p>
+  <p>下書き:</p>
+</div>

@@ -14,4 +14,16 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
 
+
+  def public_reports
+    # Report.find_by(user_id: self.id, public_flag: true)
+    Report.where(user_id: self.id, public_flag: true)
+  end
+
+  def public_reports_count
+    @reports = public_reports.count
+# binding.pry
+
+  end
+
 end

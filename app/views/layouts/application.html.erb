@@ -25,12 +25,10 @@
   <% end %>
 
   <%= yield %>
-
-  <% if Rails.env.development? %>
-    <% debug(params) %>
-  <% end %>
-
 </div>
 
 </body>
+<footer>
+  <%= render 'layouts/footer'%>
+</footer>
 </html>

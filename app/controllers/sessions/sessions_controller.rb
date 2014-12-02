@@ -13,7 +13,7 @@ class Sessions::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
-    #super
+    # super
     sign_out
     #redirect_to foobar_hoge_path
     redirect_to new_user_session_path

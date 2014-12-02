@@ -16,7 +16,7 @@ RSpec.describe Report, :type => :model do
   it {is_expected.to be_valid}
 
 
-  describe "when user_od is not present" do
+  describe "when user_id is not present" do
     before {@report.user_id = nil}
     it {is_expected.not_to be_valid}
   end

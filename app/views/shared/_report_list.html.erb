@@ -1,0 +1,44 @@
+<div>
+<% unless @reports.count == 0%>
+
+
+  <table class = "Report_list">
+
+    <tr>
+      <th>状態</th>
+      <th>日報ID</th>
+      <th>報告日付</th>
+      <th>タイトル</th>
+      <th>本文(最初の10文字)</th>
+      <th>ユーザーID</th>
+      <th>著者名</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <!-- <th></th> -->
+    </tr>
+
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.public_flag? ? "公開" : "下書"%></td>
+        <td><%= report.id%></td>
+        <td><%= report.reported_date%></td>
+        <td><%= report.title %></td>
+        <td><%= report.body_text.slice(0,10) %></td>
+        <td><%= report.user_id %></td>
+        <!--<td><%= User.find(report.user_id).name %></td>-->
+        <td><%= report.user.name %></td>
+
+        <td><%= button_to 'Show', report_path(report),method: :get %></td>
+        <td><%= button_to 'Edit', edit_report_path(report),method: :get %></td>
+        <td><%= button_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+      </tr>
+    <% end %>
+
+<% else%>
+  まだ日報がありません
+
+<% end%>
+
+</div>

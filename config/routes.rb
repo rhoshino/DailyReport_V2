@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+
+
+  resources :reports
+
+  match "user_reports", to: 'reports#user_reports', via: 'get'
+  match "public_user_reports", to:'reports#public_user_reports', via: 'get'
+  match "month_report/:month", to:'reports#month_report',via: 'get'
+
   devise_for :users, controllers: {sessions: "sessions/sessions",
                                     registrations: "sessions/registrations"}
   # The priority is based upon order of creation: first created -> highest priority.
@@ -6,8 +14,6 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'users#home'
-
-
   get "users/show"
 
   get "foobar/hoge"

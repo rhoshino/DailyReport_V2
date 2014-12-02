@@ -8,4 +8,13 @@ FactoryGirl.define do
 
   end
 
+
+  factory :report do
+    title "Example Report"
+    body_text "Lolem ipsum"
+    reported_time
+    user
+
+  end
+
 end

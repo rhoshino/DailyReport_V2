@@ -1,0 +1,41 @@
+<%= form_for(@report) do |f| %>
+  <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+      <% @report.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+
+  </div>
+  <div class="date_field">
+    <%= f.label "報告日付" %><br />
+    <%= f.date_select(
+        :reported_date,
+        use_month_numbers: true,
+        start_year: 2014,
+        default: Date.today() )%>
+  </div>
+
+  <div class="field">
+    <%= f.label "題名" %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label "本文" %><br />
+    <%= f.text_area :body_text %>
+  </div>
+  <div class="field">
+    <%= f.label "公開フラグ" %><br />
+    <%= f.check_box :public_flag, {}, true, false %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit(['save report',]) %>
+  </div>
+<% end %>

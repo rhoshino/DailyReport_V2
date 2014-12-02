@@ -1,3 +1,4 @@
+#coding:utf-8
 describe "Pages" do
 
   subject{ page }
@@ -25,6 +26,12 @@ describe "Pages" do
       it{is_expected.to have_link('Profile')}
       it{is_expected.to have_link('Settings')}
       it{is_expected.to have_link('Sign out')}
+
+      it{is_expected.to have_link('日報')}
+      it{is_expected.to have_link('作成')}
+      it{is_expected.to have_link('一覧')}
+
+      it{is_expected.to have_link('月報')}
 
       it "try to Sign out" do
         click_link('Sign out')

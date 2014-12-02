@@ -1,0 +1,14 @@
+#coding:utf-8
+
+<h2>月報</h2>
+
+<div class="date_field">
+<% params[:month]%>
+<% @selected_month = params[:month]%>
+
+<%= text_field_tag :month,params[:month] %>
+<%= button_to("ref","#{params[:month]}" ,:method => :get)%>
+
+</div>
+
+<%= render 'shared/report_list' %>
