@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
 
 
+  get 'month_report/:year/:month' => 'reports#month_report',
+    constraints: lambda { |request| Date.valid_date?(request.params[:year].to_i, request.params[:month].to_i, 1)},
+    as: "month_report"
+
+  # match'change_year_and_month' => 'reports#change_year_and_month',via: :get
+
   resources :reports
 
   match "user_reports", to: 'reports#user_reports', via: 'get'
   match "public_user_reports", to:'reports#public_user_reports', via: 'get'
-  match "month_report/:month", to:'reports#month_report',via: 'get'
+  match "draft_user_reports", to:'reports#draft_user_reports', via: 'get'
+  # match "month_report/:month", to:'reports#month_report',via: 'get'
+
+
 
   devise_for :users, controllers: {sessions: "sessions/sessions",
                                     registrations: "sessions/registrations"}

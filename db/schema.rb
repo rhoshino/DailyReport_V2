@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20141128072035) do
     t.string   "title"
     t.string   "body_text"
     t.date     "reported_date"
-    t.boolean  "public_flag"
+    t.boolean  "public_flag",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

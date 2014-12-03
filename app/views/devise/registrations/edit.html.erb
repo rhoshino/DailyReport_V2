@@ -18,6 +18,16 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
+<%# binding.pry%>
+
+  <%# init_value(current_user.sendto_address) %>
+
+  <div class="field">
+    <%= f.label :temp_address %><br />
+    <%= f.text_area :temp_address, :value => init_value(current_user.sendto_address),autofocus: true %>
+  </div>
+
+
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "off" %>

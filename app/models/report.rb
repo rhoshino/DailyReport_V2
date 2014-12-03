@@ -5,4 +5,9 @@ class Report < ActiveRecord::Base
   validates :title, presence: true
   validates :body_text, presence: true
 
+
+  def public_flag?
+      public_flag == true
+  end
+
 end

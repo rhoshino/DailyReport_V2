@@ -8,7 +8,7 @@ class CreateReports < ActiveRecord::Migration
 
       t.date :reported_date
 
-      t.boolean :public_flag
+      t.boolean :public_flag,default: false
 
       t.timestamps
     end

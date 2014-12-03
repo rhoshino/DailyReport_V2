@@ -7,6 +7,6 @@
 </span>
 
 <div>
-  <p>公開された日報：<%=link_to current_user.public_reports_count,public_user_reports_path%></p>
-  <p>下書き:</p>
+  <p>公開された日報：<b><%=link_to current_user.public_reports_count, public_user_reports_path%></p></b>
+  <p>下書き:<b><%= link_to current_user.draft_reports_count, draft_user_reports_path %></p></b>
 </div>
