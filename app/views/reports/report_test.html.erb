@@ -1,0 +1,18 @@
+<h2>レポートの検索とかのテスト領域です</h2>
+
+<%= form_tag report_test_path, :mithod => 'get' do %>
+
+  <%= text_field_tag :hoge, params[:hoge]%>
+  <%= submit_tag "更新" %>
+<% end %>
+
+<h3>変数に格納してみたやつ <%= @str %> </h3>
+<h3>paramsしてみるやつ <%= params[:hoge] %> </h3>
+
+
+<!-- <%#= form_tag projects_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
+  <p>
+    <%#= text_field_tag :hoge, params[:hpge] %>
+    <%#= submit_tag "Search", :name => nil %>
+  </p>
+<%# end %> -->

@@ -3,29 +3,12 @@
 <h2>月報 (<%= "#{params[:year]}" %>年<%= "#{params[:month]}"%>月)</h2>
 
 <div class="date_field">
+<%= form_tag month_report_path, :mithod => 'get' do %>
 
-<%#= text_field_tag :year,params[:year] %>
-<%#= text_field_tag :month, params[:month] %>
-<%#= button_to("更新", month_report_path(params[:year],params[:month]) ,:method => :get)%>
-<%#= submit_tag("更新")%>
-
-<%= form_tag month_report_path(params[:year],params[:month]),:method => 'get' do %>
-  <%= text_field_tag :year,params[:year] %>
-  <%= text_field_tag :month, params[:month] %>
-  <%#= button_to("更新", month_report_path(params[:year],params[:month]) ,:method => :get)%>
-  <%= submit_tag("更新", :name => nil) %>
+  <%= text_field_tag :year, params[:year]%>
+  <%= text_field_tag :month, params[:month]%>
+  <%= submit_tag "更新" %>
 <% end %>
-
-
-<%#= form_tag({controller: "reports", action: "month_report",month: @month},method: "get") do %>
-  <%#= label_tag(@month, "Month for:") %>
-  <%#= text_field_tag(:@month,params[:month]) %>
-  <%#= submit_tag("更新") %>
-  <%#= button_to("更新", month_report_path(2014,:@month) ,:method => :get)%>
-<%# end %>
-
-
-
 </div>
 
 <%= render 'shared/report_list' %>

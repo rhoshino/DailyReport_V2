@@ -20,17 +20,25 @@ class ReportsController < ApplicationController
     @reports = current_user.draft_reports
   end
 
-  def month_report
-    # params[:year] ||= Date.today.year
-    # params[:month] ||= Date.today.month
-    #TODO:未実装
-    @reports = month_report_generator(current_user,params[:year],params[:month])
-    # redirect_to month_report_path(params[:year],params[:month])
-  end
-
-  # def change_year_and_month
-  #   redirect_to month_report_path(params[:year],params[:month])
+  #This is Paramater check
+  # def report_test
+  #   if params[:hoge].present?
+  #     @str = params[:hoge]
+  #   else
+  #     params[:hoge] = "piyopiyo"
+  #   end
   # end
+  def month_report
+    unless params[:year].present?
+      params[:year] = Date.today.year
+    end
+    unless params[:month].present?
+      params[:month] = Date.today.month
+    end
+
+    @report = month_report_generator(current_user,params[:year],params[:month])
+
+  end
 
 
   def create
@@ -89,6 +97,16 @@ class ReportsController < ApplicationController
       @report = current_user.reports.find_by(id: params[:id])
       redirect_to root_url if @report.nil?
     end
+
+
+    #:HACK 月報のコントローラの中身をリファクタリングしようと思ったけれど
+    #うまいこといかない気がしたので、一度保留
+    # def params_fillter(params,mode="none")
+    #   if mode == "year"
+    #     if
+
+    #   end
+    # end
 
     #def month_report_generator(user,month)
     def month_report_generator(user,year,month)
