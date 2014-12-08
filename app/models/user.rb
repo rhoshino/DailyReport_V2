@@ -21,6 +21,11 @@ class User < ActiveRecord::Base
   #データベースに登録前、送信先アドレスを加工する
   before_save :saved_send_address
 
+
+  def admin?
+    self.role == "admin"
+  end
+
   def public_reports
     Report.where(user_id: self.id, public_flag: true)
   end

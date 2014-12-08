@@ -40,11 +40,43 @@ describe "ReportPages" do
       it{ is_expected.to have_link('Edit') }
       it{ is_expected.to have_link('home') }
 
+      describe "With Month Report" do
+        before do
+          visit month_report_path
+          fill_in "year", with:"#{Date.today.year}"
+          fill_in "month", with:"#{Date.today.month.to_i}"
+          click_button "更新"
+        end
+        it{ is_expected.to have_content("#{Date.today}")}
+        it{ is_expected.to have_content("This is Test Title")}
+        it{ is_expected.to have_content('Lorem ipsu') }
+
+        it{ is_expected.not_to have_content('Lorem ipsum') }
+
+        describe "not show other month report" do
+          before do
+            FactoryGirl.create(:report,
+                                reported_date: "2014-11-13",
+                                title: "other month",
+                                body_text: "This is not December")
+            click_button "更新"
+          end
+          it{ is_expected.not_to have_content("2014-11-13")}
+          it{ is_expected.not_to have_content("other month")}
+        end
+
+      end
+
     end# with valid information
-
-
 
   end#Report Create
 
+
+  describe "AllUserPage" do
+    before {visit admin_reports_list_path}
+
+    it{ is_expected.to have_content("全ての日報一覧") }
+
+  end
 
 end

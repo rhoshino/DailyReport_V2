@@ -13,9 +13,10 @@ class Sessions::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+   #def edit
+     # super
+     # @user = User.find(params[:id])
+   #end
 
   # PUT /resource
   def update
@@ -36,7 +37,8 @@ class Sessions::RegistrationsController < Devise::RegistrationsController
       # account_update_params.delete("current_password")
     end
 
-    @user = User.find(current_user.id)
+    #@user = User.find(current_user)
+    # @user = User.find(params[:user])
     if @user.update_attributes(account_update_params)
       set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case their password changed

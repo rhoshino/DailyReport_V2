@@ -1,8 +1,9 @@
 class ReportsController < ApplicationController
-
   before_action :authenticate_user!
 
-  before_action :correct_user,only: :destroy
+  before_action :correct_or_admin_user,only: [:destroy,:edit,:show]
+
+  before_action :admin_user,only:[:admin_reports_list]
 
   def new
     @report = Report.new()
@@ -20,15 +21,32 @@ class ReportsController < ApplicationController
     @reports = current_user.draft_reports
   end
 
-  #This is Paramater check
-  # def report_test
-  #   if params[:hoge].present?
-  #     @str = params[:hoge]
-  #   else
-  #     params[:hoge] = "piyopiyo"
-  #   end
-  # end
-  def month_report
+  def admin_reports_list
+    if params[:fillterd]
+      if params[:user].present?
+        user_name = params[:user].to_s
+      end
+      if params[:year].present?
+            year = params[:year].to_s
+      end
+      if params[:month].present?
+            month = params[:month].to_s
+      end
+      if params[:public_flag].present?
+            public_flag = true
+      end
+    else
+      params[:user] = nil
+      params[:year] = nil
+      params[:month] = nil
+      params[:public_flag] = nil
+    end
+
+    @report = fillterd_report_generator(user_name,year,month,public_flag)
+
+  end
+
+  def month_report #月報
     unless params[:year].present?
       params[:year] = Date.today.year
     end
@@ -46,7 +64,7 @@ class ReportsController < ApplicationController
 
     if @report.save
       respond_to do |format|
-# binding.pry
+#binding.pry
         ApplicationController.helpers.send_report(@report.user,@report)
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render json: @report, status: :created, location: @report }
@@ -63,7 +81,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.update_attributes(reports_params)
-# binding.pry
+ # binding.pry
         ApplicationController.helpers.send_report(@report.user,@report)
         format.html { redirect_to @report, notice: 'Report was successfully updated.' }
         format.json { head :no_content }
@@ -83,6 +101,11 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
+  def correct_user
+    @report = current_user.reports.find_by(id: params[:id])
+    redirect_to root_url if @report.nil?
+  end
+
 
   private
     def reports_params
@@ -93,27 +116,38 @@ class ReportsController < ApplicationController
                                       :public_flag)
     end
 
-    def correct_user
-      @report = current_user.reports.find_by(id: params[:id])
-      redirect_to root_url if @report.nil?
+    def correct_or_admin_user
+      # binding.pry
+      unless current_user.admin?
+        @report = current_user.reports.find_by(id: params[:id])
+        redirect_to root_url if @report.nil?
+      end
     end
 
-
-    #:HACK 月報のコントローラの中身をリファクタリングしようと思ったけれど
-    #うまいこといかない気がしたので、一度保留
-    # def params_fillter(params,mode="none")
-    #   if mode == "year"
-    #     if
-
-    #   end
-    # end
 
     #def month_report_generator(user,month)
     def month_report_generator(user,year,month)
       @reports = Report.where(user_id: user, public_flag: true)
       @reports = @reports.where('extract(year from reported_date) = ?', year)
       @reports = @reports.where('extract(month from reported_date) = ?', month)
-      @reports
+      @reports #return
     end
+
+    def fillterd_report_generator(user,year,month,public_flag)
+      @reports = Report.all
+      unless user.nil?
+        @reports = @reports.where(user_id: user)
+      end
+      unless year.nil?
+        @reports = @reports.where('extract(year from reported_date) = ?', year)
+      end
+      unless month.nil?
+        @reports = @reports.where('extract(month from reported_date) = ?', month)
+      end
+      unless public_flag.nil?
+        @reports = @reports.where(public_flag: true)
+      end
+    end
+
 
 end

@@ -12,25 +12,26 @@ Rails.application.routes.draw do
   match "month_report", to: 'reports#month_report', via: 'get'
   match "month_report", to: 'reports#month_report', via: 'post'
 
-
+  match "admin_reports_list",to: 'reports#admin_reports_list', via:'get'
+  match "admin_reports_list",to: 'reports#admin_reports_list', via:'post'
 
   resources :reports
 
   match "user_reports", to: 'reports#user_reports', via: 'get'
   match "public_user_reports", to:'reports#public_user_reports', via: 'get'
   match "draft_user_reports", to:'reports#draft_user_reports', via: 'get'
-  # match "month_report/:month", to:'reports#month_report',via: 'get'
 
 
-
+  match "admin_users_list",to: 'users#admin_users_list', via:'get'
   devise_for :users, controllers: {sessions: "sessions/sessions",
                                     registrations: "sessions/registrations"}
+  resources :users, :only => [:show]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'users#home'
-  get "users/show"
+  #get "users/show"
 
   get "foobar/hoge"
 

@@ -5,13 +5,15 @@ RSpec.describe Report, :type => :model do
   let(:user){ FactoryGirl.create(:user) }
 
   before{@report = user.reports.build(title: "example title",
-                                      body_text: "Lorem ipsum")}
+                                      body_text: "Lorem ipsum",
+                                      reported_date: "2014-12-25")}
 
   subject{ @report }
 
   it{is_expected.to respond_to(:title)}
   it{is_expected.to respond_to(:user_id)}
   it{is_expected.to respond_to(:user)}
+  it{is_expected.to respond_to(:reported_date)}
 
   it {is_expected.to be_valid}
 

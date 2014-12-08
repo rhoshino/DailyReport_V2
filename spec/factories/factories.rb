@@ -12,7 +12,7 @@ FactoryGirl.define do
   factory :report do
     title "Example Report"
     body_text "Lolem ipsum"
-    reported_time
+    reported_date "2014-12-25"
     user
 
   end
