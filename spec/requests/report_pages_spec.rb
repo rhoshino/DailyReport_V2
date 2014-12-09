@@ -70,13 +70,4 @@ describe "ReportPages" do
     end# with valid information
 
   end#Report Create
-
-
-  describe "AllUserPage" do
-    before {visit admin_reports_list_path}
-
-    it{ is_expected.to have_content("全ての日報一覧") }
-
-  end
-
 end

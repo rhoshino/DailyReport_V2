@@ -5,7 +5,7 @@
 <% @users.each do |user| %>
   <li>
     <%= link_to user.name, user %>
-    | <%= link_to "delete", user, method: :delete %>
+    | <%= link_to "delete", admin_destroy_user_path(user), method: :delete, data: { confirm: "本当に#{user.name}を削除しますか?" } %>
   </li>
 <% end %>
 

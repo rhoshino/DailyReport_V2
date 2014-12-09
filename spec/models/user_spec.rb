@@ -18,6 +18,10 @@ RSpec.describe User, :type => :model do
   it {is_expected.to respond_to(:encrypted_password)}
   it {is_expected.to respond_to(:sendto_address)}
 
+
+  # it {is_expected.to respond_to(:sendto_address)}
+  # it {is_expected.to respond_to(:sendto_address)}
+
   #Validatable?
   it {is_expected.to be_valid}
 

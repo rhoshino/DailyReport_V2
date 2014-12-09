@@ -125,6 +125,10 @@ class ReportsController < ApplicationController
     end
 
 
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
+
     #def month_report_generator(user,month)
     def month_report_generator(user,year,month)
       @reports = Report.where(user_id: user, public_flag: true)

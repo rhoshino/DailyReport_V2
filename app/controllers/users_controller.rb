@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :correct_or_admin_user, only:[:show]
-  before_action :admin_user, only:[:admin_users_list]
+  before_action :admin_user, only:[:admin_users_list, :destroy]
 
   def home
     @user = current_user
@@ -29,7 +29,21 @@ class UsersController < ApplicationController
                                     :public_flag)
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+
+    if @user.destroy
+        redirect_to root_url, notice: "User deleted."
+    end
+  end
+
   private
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
+
 
     def correct_or_admin_user
       # binding.pry

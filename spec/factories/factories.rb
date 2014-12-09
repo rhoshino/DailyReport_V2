@@ -1,3 +1,4 @@
+
 FactoryGirl.define do
   factory :user do
 
@@ -5,6 +6,8 @@ FactoryGirl.define do
     sequence(:email){|n| "person_#{n}@example.com"}
 
     password "password"
+
+    role nil
 
   end
 
@@ -14,6 +17,7 @@ FactoryGirl.define do
     body_text "Lolem ipsum"
     reported_date "2014-12-25"
     user
+    public_flag nil
 
   end
 

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   match "admin_users_list",to: 'users#admin_users_list', via:'get'
   devise_for :users, controllers: {sessions: "sessions/sessions",
                                     registrations: "sessions/registrations"}
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
   resources :users, :only => [:show]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
