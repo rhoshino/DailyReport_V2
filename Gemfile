@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -9,7 +9,7 @@ gem 'pg', '~> 0.18.0.pre20141117110243'
 
 #use authlization
 gem 'devise'
-gem 'cancan'
+# gem 'cancan'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

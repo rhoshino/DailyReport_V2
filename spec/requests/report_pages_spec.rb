@@ -15,11 +15,28 @@ describe "ReportPages" do
       click_link "作成"
     end
 
+    describe "page" do
+
+      it{ is_expected.to have_content("日報作成") }
+      it{ is_expected.to have_content("報告日付") }
+      it{ is_expected.to have_content("出勤時間") }
+      it{ is_expected.to have_content("退勤時間") }
+      it{ is_expected.to have_content("題名") }
+      it{ is_expected.to have_content("本文") }
+      it{ is_expected.to have_content("公開フラグ") }
+      it{ is_expected.to have_button("save report") }
+
+    end
+
     describe "with valid information" do
       before do#モデルのバリデーションに沿う
 
         #報告日付 (Utility Function)
         select_date(Date.today, from: "report_reported_date")
+
+        #出勤時間、退勤時間 (Utility Function)
+        select_time("08","30",from:"report_work_start_time")
+        select_time("19","50",from:"report_work_end_time")
 
         #題名
         fill_in "report_title", with:"This is Test Title"
@@ -36,6 +53,8 @@ describe "ReportPages" do
       it{ is_expected.to have_content("This is Test Title")}
       it{ is_expected.to have_content('Lorem ipsum') }
       it{ is_expected.to have_content('true') }
+      it{ is_expected.to have_content('08:30')}
+      it{ is_expected.to have_content('19:50')}
 
       it{ is_expected.to have_link('Edit') }
       it{ is_expected.to have_link('home') }

@@ -5,10 +5,10 @@
 <%= form_tag admin_reports_list_path, :mithod => 'get' do %>
 
   フィルター<br>
-  <%= text_field_tag :user, params[:user]%>ユーザーID
+  <%= text_field_tag :user, params[:user], :placeholder => "1..."%>ユーザーID
   <br>
-  <%= text_field_tag :year, params[:year]%>年
-  <%= text_field_tag :month, params[:month]%>月
+  <%= text_field_tag :year, params[:year], :placeholder => "2014..."%>年
+  <%= text_field_tag :month, params[:month], :placeholder => "12..."%>月
   <br>
   公開状態 : <%= check_box_tag :public_flag %><br>
   <%= submit_tag "更新", :name => 'fillterd' %>

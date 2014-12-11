@@ -1,6 +1,9 @@
 #coding:utf-8
 
 <h2>月報 (<%= "#{params[:year]}" %>年<%= "#{params[:month]}"%>月)</h2>
+<div>
+  今月の労働時間(<%=@worktime[:hour]%>時<%=@worktime[:miunte]%>分)
+</div>
 
 <div class="date_field">
 <%= form_tag month_report_path, :mithod => 'get' do %>

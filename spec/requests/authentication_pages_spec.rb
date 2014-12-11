@@ -22,29 +22,7 @@ describe "Authentication" do
       it{ is_expected.not_to have_link('月報') }
     end
 
-    describe "Authrization" do
-      let(:user_a) {FactoryGirl.create(:user,
-                                        name: 'Stanly',
-                                        email: 'Stanly@spec.com')}
-      let(:user_b) {FactoryGirl.create(:user,
-                                        name: 'Narrator',
-                                        email: 'Narrator@spec.com')}
-
-      let(:report_a){FactoryGirl.create(:report,user: user_a)}
-      let(:report_b){FactoryGirl.create(:report,user: user_b)}
-
-      describe "user_a is can'not edit user_b's Reporty" do
-        before do
-          # binding.pry
-          sign_in user_a
-          visit report_path(report_b.id)
-        end
-        #it{is_expected.not_to have_content('Narrator')}
-      end
-
-    end#cancan
-
-    describe "Admin" do
+    describe "Auth" do
 
       let(:admin){FactoryGirl.create(:user,role: 'admin')}
       let(:non_admin){FactoryGirl.create(:user)}
@@ -73,6 +51,12 @@ describe "Authentication" do
           it{ is_expected.to have_content("ユーザーリスト") }
 
         end# all user page
+
+        describe "Admin is Show other user" do
+          before {visit user_path(user)}
+          it{ is_expected.to have_content("#{user.name}") }
+        end
+
       end# Admin user
 
 

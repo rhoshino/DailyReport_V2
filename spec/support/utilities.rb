@@ -20,3 +20,9 @@ def select_date(date, options = {})
   select date.strftime('%m'), :from => "#{field}_2i" #month
   select date.strftime('%d').to_i, :from => "#{field}_3i" #day
 end
+def select_time(hour, minute, options = {})
+  field = options[:from]
+  #base_id = find(:xpath, ".//label[contains(.,'#{field}')]")[:for]
+  select hour, :from => "#{field}_4i"
+  select minute, :from => "#{field}_5i"
+end

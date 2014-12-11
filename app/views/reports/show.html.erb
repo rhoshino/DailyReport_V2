@@ -12,6 +12,11 @@
 </p>
 
 <p>
+  <b>Time:</b>
+  <%= @report.work_start_time.strftime('%H:%M') %> ~ <%= @report.work_end_time.strftime('%H:%M') %>
+</p>
+
+<p>
   <b>Title:</b>
   <%= @report.title %>
 </p>

@@ -19,16 +19,36 @@
         :reported_date,
         use_month_numbers: true,
         start_year: Date.today.year - 1,
-        default: Date.today() )%>
+        default: Date.today(),
+        date_separator:    ' / ')%>
   </div>
+
+  <div class="work_time_field">
+    <div class="time_field">
+      <%= f.label "出勤時間"%>
+      <%= f.time_select :work_start_time,
+                        :default => {:hour => '9', :minute => '00'},
+                        :minute_step => 10  %>
+    </div>
+
+    <div class="time_field">
+      <%= f.label "退勤時間"%>
+      <%= f.time_select :work_end_time,
+                        :default => {:hour => '18', :minute => '00'},
+                        :minute_step => 10  %>
+    </div>
+  </div>
+
+
+
 
   <div class="field">
     <%= f.label "題名" %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, placeholder:"日報のタイトル..." %>
   </div>
   <div class="field">
     <%= f.label "本文" %><br />
-    <%= f.text_area :body_text %>
+    <%= f.text_area :body_text, placeholder:"日報の本文..." %>
   </div>
   <div class="field">
     <%= f.label "公開フラグ" %><br />

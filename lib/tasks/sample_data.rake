@@ -10,8 +10,8 @@ namespace :db do
     create_admin
   end
 
-  desc "Create Develop Date"
-  task create_dev_date: :environment do
+  desc "Create Develop Data"
+  task create_dev_data: :environment do
     create_admin
     create_one
     p "... create dev date set"
@@ -19,7 +19,13 @@ namespace :db do
 
   desc "Fill database with sample data"
   task populate: :environment do
+    create_admin
     create_users(10)
+    create_reports
+  end
+
+  desc "Create sum reports"
+  task create_reports: :environment do
     create_reports
   end
 
@@ -68,12 +74,14 @@ namespace :db do
 
 
   def create_reports
-    users = User.all.limit(6)
+    users = User.all.limit(7)
 
-    10.times do |n|
+    20.times do |n|
       title = Faker::Lorem.sentence(3)
       body_text = Faker::Lorem.sentence(10)
       reported_date = Faker::Date.backward(60)
+      work_start_time = Faker::Time.between(2.days.ago, Time.now, :morning)
+      work_end_time = Faker::Time.between(2.days.ago, Time.now, :evening)
 
       if ((n%2).zero?)
         public_flag = true
@@ -81,10 +89,14 @@ namespace :db do
         public_flag = false
       end
       users.each do |user|
+        next if user.role == 'admin'
+        # binding.pry
         user.reports.create!(
           title: title,
           body_text: body_text,
           reported_date: reported_date,
+          work_start_time: work_start_time,
+          work_end_time: work_end_time,
           public_flag: public_flag
           )
       end
