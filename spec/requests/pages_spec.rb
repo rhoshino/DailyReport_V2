@@ -129,7 +129,7 @@ describe "Pages" do
       FactoryGirl.create(:report, user: user,
                            reported_date: "2015-12-25",
                            public_flag: true)
-       FactoryGirl.create(:report, user: user,
+      FactoryGirl.create(:report, user: user,
                            reported_date: "2013-09-25",
                            public_flag: true)
     end
@@ -149,7 +149,31 @@ describe "Pages" do
       it{is_expected.not_to have_content("2015-12-25")}
       it{is_expected.not_to have_content("日報がありません")}
     end# fill in year
-  end
+
+    describe "Calc_time" do
+      before do
+        create_sum_report
+        visit month_report_path
+      end
+      it {
+        is_expected.to have_content("今月の労働時間(10時間40分)") }
+
+      describe "fillterd_time" do
+        before do
+          visit month_report_path
+          fill_in("year", with: "#{Date.today.prev_month.year}")
+          fill_in("month", with: "#{Date.today.prev_month.month}")
+          click_button("更新")
+        end
+        it{save_and_open_page
+          is_expected.to have_content("表示月の労働時間(9時間0分)") }
+      end
+
+    end
+
+
+
+  end# month Report
 
   describe "All User page" do
     let(:admin){FactoryGirl.create(:user,role: 'admin')}
@@ -249,3 +273,51 @@ describe "Pages" do
   end# All Report Page
 
 end
+
+
+private
+  #HHACK: need refactorring
+  def create_sum_report
+        work_start_time = { :hour => "08", :minute => "20" }
+        work_end_time = { :hour => "18", :minute => "20" }
+
+        fill_data = { :reported_date => Date.today}
+
+        fill_data[:work_start_time] = work_start_time
+        fill_data[:work_end_time] = work_end_time
+        # binding.pry
+        fill_data[:title] = "This is Test Title"
+        fill_data[:body_text] = "Lorem ipsum"
+        fill_data[:public_flag] = true
+
+        create_report_by_capybara(fill_data)
+
+        work_start_time = { :hour => "09", :minute => "10" }
+        work_end_time = { :hour => "09", :minute => "50" }
+
+        fill_data = { :reported_date => Date.today}
+
+        fill_data[:work_start_time] = work_start_time
+        fill_data[:work_end_time] = work_end_time
+        # binding.pry
+        fill_data[:title] = "This is Test Title"
+        fill_data[:body_text] = "Lorem ipsum"
+        fill_data[:public_flag] = true
+
+        create_report_by_capybara(fill_data)
+
+
+        work_start_time = { :hour => "09", :minute => "00" }
+        work_end_time = { :hour => "18", :minute => "00" }
+
+        fill_data = { :reported_date => Date.today.prev_month}
+
+        fill_data[:work_start_time] = work_start_time
+        fill_data[:work_end_time] = work_end_time
+        # binding.pry
+        fill_data[:title] = "This is Test Title"
+        fill_data[:body_text] = "Lorem ipsum"
+        fill_data[:public_flag] = true
+
+        create_report_by_capybara(fill_data)
+  end

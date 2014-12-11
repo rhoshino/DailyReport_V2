@@ -19,7 +19,7 @@ FactoryGirl.define do
     work_start_time Faker::Time.between(2.days.ago, Time.now, :morning)
     work_end_time Faker::Time.between(2.days.ago, Time.now, :evening)
     user
-    public_flag nil
+    public_flag true
 
   end
 

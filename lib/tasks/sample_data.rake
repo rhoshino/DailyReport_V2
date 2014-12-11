@@ -80,8 +80,10 @@ namespace :db do
       title = Faker::Lorem.sentence(3)
       body_text = Faker::Lorem.sentence(10)
       reported_date = Faker::Date.backward(60)
-      work_start_time = Faker::Time.between(2.days.ago, Time.now, :morning)
-      work_end_time = Faker::Time.between(2.days.ago, Time.now, :evening)
+
+      # faker_time = Faker::Time.between(2.days.ago, Time.now, :morning)
+      work_start_time = create_hour_ust(Faker::Time.between(2.days.ago, Time.now, :morning))
+      work_end_time = create_hour_ust(Faker::Time.between(2.days.ago, Time.now, :evening))
 
       if ((n%2).zero?)
         public_flag = true
@@ -105,7 +107,15 @@ namespace :db do
   end
 end
 
-
+def create_hour_ust(faker_time)
+  Time.new(faker_time.year.to_s,
+           faker_time.mon.to_s,
+           faker_time.day.to_s,
+           faker_time.hour.to_s,
+           faker_time.min.to_s,
+           faker_time.sec.to_s,
+           0)
+end
 
 # desc "print hello task"
 # task "hello" do

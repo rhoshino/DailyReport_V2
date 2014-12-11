@@ -53,8 +53,9 @@ class ReportsController < ApplicationController
     unless params[:month].present?
       params[:month] = Date.today.month
     end
-    @worktime = month_report_worktime_calculator(current_user)
-    @report = month_report_generator(current_user,params[:year],params[:month])
+    @worktime = ApplicationController.helpers.month_report_worktime_calculator(current_user)
+    # binding.pry
+    @reports = month_report_generator(current_user,params[:year],params[:month])
 
   end
 
@@ -130,36 +131,6 @@ class ReportsController < ApplicationController
     def admin_user
       redirect_to(root_url) unless current_user.admin?
     end
-
-    def month_report_worktime_calculator(user)
-      year = Date.today.year
-      month = Date.today.month
-      @reports = Report.where(user_id: user, public_flag: true)
-      @reports = @reports.where('extract(year from reported_date) = ?', year)
-      @reports = @reports.where('extract(month from reported_date) = ?', month)
-      work_time = calc_month_work_time(@reports)
-      return work_time
-    end
-
-    def calc_month_work_time(reports)
-      hours = 0
-      mins = 0
-      # reports = @reports
-      #まず開始時間と終了時間のリストを作成する。
-      reports.each do |report|
-        # day1 = Time.local(2000, 12, 31, 0, 0, 0) #=> Sun Dec 31 00:00:00 JST 2000
-        # day2 = Time.local(2001, 1, 2, 12, 30, 0) #=> Tue Jan 02 12:30:00 JST 2001
-        starttime = report.work_start_time
-        endtime = report.work_end_time
-        days = (endtime - starttime).divmod(24*60*60) #=> [2.0, 45000.0]
-        hours = days[1].divmod(60*60) #=> [12.0, 1800.0]
-        mins = hours[1].divmod(60) #=> [30.0, 0.0]
-
-      end
-
-      return {:hour => hours[0], :minute => mins[0]}
-
-    end#def calc_month_work_time
 
     #def month_report_generator(user,month)
     def month_report_generator(user,year,month)
