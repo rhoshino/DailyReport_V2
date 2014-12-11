@@ -119,6 +119,11 @@ class ReportsController < ApplicationController
                                       :public_flag)
     end
 
+    def business_contents_params
+      params.require(:business_content).permit(:report_id,
+                                                :content_name)
+    end
+
     def correct_or_admin_user
       # binding.pry
       unless current_user.admin?
