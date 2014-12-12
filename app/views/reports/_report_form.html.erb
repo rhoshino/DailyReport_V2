@@ -14,7 +14,7 @@
 
   </div>
   <div class="date_field">
-    <%= f.label "報告日付" %><br />
+    <%= f.label "報告日付" %>
     <%= f.date_select(
         :reported_date,
         use_month_numbers: true,
@@ -39,20 +39,27 @@
     </div>
   </div>
 
+<!--   <div class="rest_field">
+    <%#= f.label "休暇" %>
+    <%#= f.select :rest, { "なし" => nil, "全休" => "all", "半休" => "half" }%>
 
-
+  </div> -->
 
   <div class="field">
-    <%= f.label "題名" %><br />
+    <%= f.label "題名" %>
     <%= f.text_field :title, placeholder:"日報のタイトル..." %>
   </div>
   <div class="field">
-    <%= f.label "本文" %><br />
+    <%= f.label "本文" %>
     <%= f.text_area :body_text, placeholder:"日報の本文..." %>
   </div>
   <div class="field">
-    <%= f.label "公開フラグ" %><br />
+    <%= f.label "公開フラグ" %>
     <%= f.check_box :public_flag, {}, true, false %>
+  </div>
+
+  <div class="field">
+    <%= %>
   </div>
 
   <div class="actions">

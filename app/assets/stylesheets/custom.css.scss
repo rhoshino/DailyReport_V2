@@ -32,17 +32,50 @@ section{
     }
 }
 
+
+/* 日報作成画面 */
 div.date_field {
-    select{
-        width:75px;
-    }
-}
-div.time_field {
     select{
         width:75px;
     }
 }
 
 div.work_time_field{
+    display: flex;
+    flex-direction: row;
+    div.time_field{
+        margin-right: 20px;
+    }
+    select{
+        width:75px;
+    }
+}
 
+div.field {
+    textarea{
+        width:400px;
+        height:100px;
+    }
+}
+
+
+
+/* 全ての日報一覧 */
+div.admin_report_fillter_field div.fillter_area{
+    display: flex;
+    flex-direction: row;
+
+
+    div.fillter_input{
+        margin-right: 10px;
+        margin-left: 10px;
+
+        input{
+            width:75px;
+        }
+    }
+
+    div.check_box_field{
+        align-self:center;
+    }
 }

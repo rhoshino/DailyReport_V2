@@ -1,18 +1,33 @@
 <h2>全ての日報一覧</h2>
 
 
-<div class="date_field">
-<%= form_tag admin_reports_list_path, :mithod => 'get' do %>
+<div class="admin_report_fillter_field">
+<%= form_tag admin_reports_list_path, :method => 'get' do %>
+  <div class="fillter_area">
+    <div class="fillter_input">
+      ユーザーID<br>
+      <%= text_field_tag :user, params[:user], :placeholder => "1..."%>
+    </div>
+    <div class="fillter_input">
+      年<br>
+      <%= text_field_tag :year, params[:year], :placeholder => "2014..."%>
+    </div>
 
-  フィルター<br>
-  <%= text_field_tag :user, params[:user], :placeholder => "1..."%>ユーザーID
-  <br>
-  <%= text_field_tag :year, params[:year], :placeholder => "2014..."%>年
-  <%= text_field_tag :month, params[:month], :placeholder => "12..."%>月
-  <br>
-  公開状態 : <%= check_box_tag :public_flag %><br>
+    <div class="fillter_input">
+      月<br>
+      <%= text_field_tag :month, params[:month], :placeholder => "12..."%>
+    </div>
+    <div class="check_box_field">
+      公開状態 : <%= check_box_tag :public_flag %><br>
+    </div>
+  </div>
+
+  <div class="serch_text_input">
+    本文検索 : <%= text_field_tag :serch_text, params[:serch_text],:placeholder => "abc..." %><br>
+  </div>
+
   <%= submit_tag "更新", :name => 'fillterd' %>
-  <%= submit_tag "リセット", :name => 'fillter_riset' %>
+
 <% end %>
 </div>
 

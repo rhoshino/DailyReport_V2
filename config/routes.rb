@@ -15,9 +15,10 @@ Rails.application.routes.draw do
   match "admin_reports_list",to: 'reports#admin_reports_list', via:'get'
   match "admin_reports_list",to: 'reports#admin_reports_list', via:'post'
 
+  match "user_reports", to: 'reports#user_reports', via: 'get'
   resources :reports
 
-  match "user_reports", to: 'reports#user_reports', via: 'get'
+
   match "public_user_reports", to:'reports#public_user_reports', via: 'get'
   match "draft_user_reports", to:'reports#draft_user_reports', via: 'get'
 

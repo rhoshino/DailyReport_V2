@@ -87,6 +87,17 @@ describe "Pages" do
     end# with Valid information
   end#Sign up Session
 
+  describe "show page" do
+    let (:user){FactoryGirl.create(:user)}
+    before do
+      sign_in user
+      visit user_path(user)
+    end
+    it{ is_expected.to have_content(user.name) }
+    it{ is_expected.to have_content(user.email) }
+
+  end
+
   describe "Edit User page" do
     let (:user){FactoryGirl.create(:user)}
     before do
@@ -118,7 +129,49 @@ describe "Pages" do
       specify { expect(user.reload.email).to eq new_email }
     end# with Valid information
 
-  end
+    describe "Address Check" do
+
+      describe "One collect address" do
+        before do
+
+          fill_in 'user_temp_address', with:"hoge@null.com"
+          click_button "Update"
+        end
+        it {is_expected.to have_content('Your account has been updated successfully.')}
+        it {is_expected.to have_content('あなたの日報')}
+      end
+
+      describe "Sum collect address" do
+        before do
+          fill_in "user_temp_address",
+                  with:"aafasfas@non.com\n" + "hoge@null.com"
+          click_button "Update"
+        end
+        it {is_expected.to have_content('Your account has been updated successfully.')}
+        it {is_expected.to have_content('あなたの日報')}
+      end
+
+      describe "One iriegal address" do
+        before do
+          fill_in "user_temp_address",
+                  with:"damedesu"
+          click_button "Update"
+        end
+        it {is_expected.not_to have_content('Your account has been updated successfully.')}
+        it {is_expected.to have_content('error')}
+      end
+      describe "Sum One iriegal address" do
+        before do
+          fill_in "user_temp_address",
+                  with: "aafasfas@non.com\n" + "damedesu"
+          click_button "Update"
+        end
+        it {is_expected.not_to have_content('Your account has been updated successfully.')}
+        it {is_expected.to have_content('error')}
+      end
+    end#adress check
+
+  end# Edit user page
 
   describe "month Report" do
     let(:user){FactoryGirl.create(:user)}
@@ -165,8 +218,7 @@ describe "Pages" do
           fill_in("month", with: "#{Date.today.prev_month.month}")
           click_button("更新")
         end
-        it{save_and_open_page
-          is_expected.to have_content("表示月の労働時間(9時間0分)") }
+        it{ is_expected.to have_content("表示月の労働時間(9時間0分)") }
       end
 
     end
@@ -270,6 +322,42 @@ describe "Pages" do
       it{is_expected.not_to have_content("2013-08-25")}
       it{is_expected.not_to have_content("日報がありません")}
     end# fill in month
+
+    describe "fill in public_flag" do
+      before do
+        FactoryGirl.create(:report, user: user,
+                         title:"this is draft report",
+                         public_flag: false )
+        FactoryGirl.create(:report, user: user,
+                         title:"this is public report",
+                         public_flag: true )
+        check  "public_flag"
+        click_button("更新")
+      end
+
+      it{ is_expected.not_to have_content("this is draft report") }
+      it{ is_expected.to have_content("this is public report") }
+    end# fill in month
+
+    describe "fill in serch_text" do
+
+      before do
+        FactoryGirl.create(:report, user: user,
+                         title:"HAHAHA",
+                         body_text: "myonmyonmyo myonmyo",
+                         public_flag: true )
+        FactoryGirl.create(:report, user: user,
+                         title:"this is draft report",
+                         public_flag: true )
+
+        fill_in("serch_text", with:"myon")
+        click_button("更新")
+      end
+
+      it{ is_expected.not_to have_content("this is draft report") }
+      it{ is_expected.to have_content("HAHAHA") }
+    end# fill in month
+
   end# All Report Page
 
 end

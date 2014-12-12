@@ -35,14 +35,18 @@ class ReportsController < ApplicationController
       if params[:public_flag].present?
             public_flag = true
       end
+      if params[:serch_text].present?
+        serch_text = params[:serch_text].to_s
+      end
     else
       params[:user] = nil
       params[:year] = nil
       params[:month] = nil
       params[:public_flag] = nil
+      params[:serch_text] = nil
     end
 
-    @report = fillterd_report_generator(user_name,year,month,public_flag)
+    @report = fillterd_report_generator(user_name,year,month,public_flag, serch_text)
 
   end
 
@@ -65,7 +69,7 @@ class ReportsController < ApplicationController
 
     if @report.save
       respond_to do |format|
-#binding.pry
+
         ApplicationController.helpers.send_report(@report.user,@report)
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render json: @report, status: :created, location: @report }
@@ -116,13 +120,14 @@ class ReportsController < ApplicationController
                                       :reported_date,
                                       :work_start_time,
                                       :work_end_time,
+                                      :rest,
                                       :public_flag)
     end
 
-    def business_contents_params
-      params.require(:business_content).permit(:report_id,
-                                                :content_name)
-    end
+    # def business_contents_params
+    #   params.require(:business_content).permit(:report_id,
+    #                                             :content_name)
+    # end
 
     def correct_or_admin_user
       # binding.pry
@@ -145,7 +150,7 @@ class ReportsController < ApplicationController
       @reports #return
     end
 
-    def fillterd_report_generator(user,year,month,public_flag)
+    def fillterd_report_generator(user,year,month,public_flag,serch_text)
       @reports = Report.all
       unless user.nil?
         @reports = @reports.where(user_id: user)
@@ -159,6 +164,10 @@ class ReportsController < ApplicationController
       unless public_flag.nil?
         @reports = @reports.where(public_flag: true)
       end
+      unless serch_text.nil?
+        @reports = @reports.where(['body_text LIKE ?', "%#{serch_text}%"])
+      end
+
     end
 
 
