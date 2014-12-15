@@ -66,15 +66,22 @@ class ReportsController < ApplicationController
 
   def create
     @report = current_user.reports.build(reports_params)
-
+#binding.pry
     if @report.save
+# binding.pry
       respond_to do |format|
-
+# binding.pry
         ApplicationController.helpers.send_report(@report.user,@report)
+# binding.pry
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render json: @report, status: :created, location: @report }
       end
+    else
+ # binding.pry
+    # redirect_to new_report_path
+    render 'new'
     end
+
   end
 
   def edit

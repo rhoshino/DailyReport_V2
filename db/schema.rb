@@ -11,19 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212075035) do
+ActiveRecord::Schema.define(version: 20141210013605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "business_contents", force: true do |t|
-    t.integer  "report_id"
-    t.string   "content_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "business_contents", ["report_id"], name: "index_business_contents_on_report_id", using: :btree
 
   create_table "reports", force: true do |t|
     t.integer  "user_id"
@@ -35,7 +26,6 @@ ActiveRecord::Schema.define(version: 20141212075035) do
     t.datetime "updated_at"
     t.time     "work_start_time"
     t.time     "work_end_time"
-    t.string   "rest"
   end
 
   add_index "reports", ["user_id", "created_at", "reported_date"], name: "index_reports_on_user_id_and_created_at_and_reported_date", using: :btree

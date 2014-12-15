@@ -18,7 +18,7 @@ RSpec.describe Report, :type => :model do
   it{is_expected.to respond_to(:reported_date)}
   it{is_expected.to respond_to(:work_start_time)}
   it{is_expected.to respond_to(:work_end_time)}
-  it{is_expected.to respond_to(:rest)}
+  # it{is_expected.to respond_to(:rest)}
 
 
   it {is_expected.to be_valid}
