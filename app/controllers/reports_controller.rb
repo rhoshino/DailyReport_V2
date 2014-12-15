@@ -58,7 +58,8 @@ class ReportsController < ApplicationController
       params[:month] = Date.today.month
     end
     @worktime = ApplicationController.helpers.month_report_worktime_calculator(current_user)
-    # binding.pry
+    # @resttime = ApplicationController.helpers.month_report_resttime_calculator(current_user)
+
     @reports = month_report_generator(current_user,params[:year],params[:month])
 
   end
@@ -66,19 +67,17 @@ class ReportsController < ApplicationController
 
   def create
     @report = current_user.reports.build(reports_params)
-#binding.pry
+
     if @report.save
-# binding.pry
+
       respond_to do |format|
-# binding.pry
+
         ApplicationController.helpers.send_report(@report.user,@report)
-# binding.pry
+
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render json: @report, status: :created, location: @report }
       end
     else
- # binding.pry
-    # redirect_to new_report_path
     render 'new'
     end
 
@@ -93,7 +92,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.update_attributes(reports_params)
- # binding.pry
+
         ApplicationController.helpers.send_report(@report.user,@report)
         format.html { redirect_to @report, notice: 'Report was successfully updated.' }
         format.json { head :no_content }
@@ -137,7 +136,7 @@ class ReportsController < ApplicationController
     # end
 
     def correct_or_admin_user
-      # binding.pry
+
       unless current_user.admin?
         @report = current_user.reports.find_by(id: params[:id])
         redirect_to root_url if @report.nil?

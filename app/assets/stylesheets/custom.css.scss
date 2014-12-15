@@ -34,12 +34,25 @@ section{
 
 
 /* 日報作成画面 */
-div.date_field {
-    select{
-        width:75px;
+div.date_and_rest{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    div.date_field {
+        select{
+            width:75px;
+        }
+    }
+    div.rest_field{
+        margin-left: 20px;
+        display: flex;
+        flex-direction: row;
+        label{
+            margin-left: 20px;
+        }
+
     }
 }
-
 div.work_time_field{
     display: flex;
     flex-direction: row;

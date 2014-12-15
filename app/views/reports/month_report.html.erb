@@ -2,12 +2,14 @@
 
 
 <% display_time = calc_month_work_time(@reports) %>
+<% display_rest_time = calc_month_rest_time(@reports) %>
 
 <h2>月報 (<%= "#{params[:year]}" %>年<%= "#{params[:month]}"%>月)</h2>
 <div class="month_repory_data">
 
-  今月の労働時間(<%=@worktime[:hour]%>時間<%=@worktime[:minute]%>分)<br>
-  表示月の労働時間(<%=display_time[:hour]%>時間<%=display_time[:minute]%>分)
+  今月の労働時間(<%=@worktime[:work][:hour]%>時間<%=@worktime[:work][:minute]%>分)<br>
+  表示月の労働時間(<%=display_time[:hour]%>時間<%=display_time[:minute]%>分)<br>
+  今月の休憩時間(<%= @worktime[:rest] %>)h 表示月の休憩時間(<%= display_rest_time %>)
 </div>
 
 <div class="date_field">

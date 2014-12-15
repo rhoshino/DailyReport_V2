@@ -13,14 +13,27 @@
   <div>
 
   </div>
-  <div class="date_field">
-    <%= f.label "報告日付" %>
-    <%= f.date_select(
-        :reported_date,
-        use_month_numbers: true,
-        start_year: Date.today.year - 1,
-        default: Date.today(),
-        date_separator:    ' / ')%>
+
+
+  <div class = "date_and_rest">
+    <div class="date_field">
+      <%= f.label "報告日付" %>
+      <%= f.date_select(
+          :reported_date,
+          use_month_numbers: true,
+          start_year: Date.today.year - 1,
+          default: Date.today(),
+          date_separator:    ' / ')%>
+    </div>
+
+
+    <div class="rest_field">
+      <%#= f.label "休暇" %>
+      <%#= f.radio_button  :rest, { "なし" => nil, "全休" => "all", "半休" => "half" }%>
+      <label><%= f.radio_button :rest, :nil %>なし</label>
+      <label><%= f.radio_button :rest, "all" %>全休</label>
+      <label><%= f.radio_button :rest, "harf" %>半休</label>
+    </div>
   </div>
 
   <div class="work_time_field">
@@ -38,12 +51,6 @@
                         :minute_step => 10  %>
     </div>
   </div>
-
-<!--   <div class="rest_field">
-    <%#= f.label "休暇" %>
-    <%#= f.select :rest, { "なし" => nil, "全休" => "all", "半休" => "half" }%>
-
-  </div> -->
 
   <div class="field">
     <%= f.label "題名" %>

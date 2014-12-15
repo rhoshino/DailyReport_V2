@@ -8,7 +8,8 @@ RSpec.describe Report, :type => :model do
                                       body_text: "Lorem ipsum",
                                       reported_date: "2014-12-25",
                                       work_start_time: "09:00",
-                                      work_end_time: "18:00")}
+                                      work_end_time: "18:00",
+                                      public_flag: true)}
 
   subject{ @report }
 
@@ -18,7 +19,7 @@ RSpec.describe Report, :type => :model do
   it{is_expected.to respond_to(:reported_date)}
   it{is_expected.to respond_to(:work_start_time)}
   it{is_expected.to respond_to(:work_end_time)}
-  # it{is_expected.to respond_to(:rest)}
+  it{is_expected.to respond_to(:rest)}
 
 
   it {is_expected.to be_valid}
