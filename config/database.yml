@@ -82,6 +82,6 @@ test:
 #
 production:
   <<: *default
-  database: DailyReportApp_V2_production
-  username: DailyReportApp_V2
-  password: <%= ENV['DAILYREPORTAPP_V2_DATABASE_PASSWORD'] %>
+  database: dcvhnu4qffbg1g
+  username: vbxccnshtgrnkp
+  password: yvtcy6pw1U2N4fXEZrFxY3ytu2
