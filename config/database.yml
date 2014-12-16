@@ -82,6 +82,7 @@ test:
 #
 production:
   <<: *default
+  host: ec2-54-235-76-206.compute-1.amazonaws.com
   database: dcvhnu4qffbg1g
   username: vbxccnshtgrnkp
   password: yvtcy6pw1U2N4fXEZrFxY3ytu2
